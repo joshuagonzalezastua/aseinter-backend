@@ -15,7 +15,7 @@ class Usuario {
     }
    
 	function read(){
-    	$query = "SELECT correo, nombre, apellidos, contrasena, privilegio FROM ". $this->table_name;
+    	$query = "SELECT correo, nombre, apellidos, sha1(contrasena) as contrasena, privilegio FROM ". $this->table_name;
         $stmt = $this->conn->prepare($query);
 		$stmt->execute();
 		return $stmt;
