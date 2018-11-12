@@ -84,6 +84,36 @@ class Usuario {
 
         return false;
     }
+	
+	function createUser() {
+        $query = "INSERT INTO " . $this->table_name 
+            . " SET
+            correo=:correo, 
+            nombre=:nombre, 
+            apellidos=:apellidos,
+            contrasena=:contrasena, 
+            privilegio=:privilegio";
+
+        $stmt = $this->conn->prepare($query);
+
+        $this->correo=htmlspecialchars(strip_tags($this->correo));
+        $this->nombre=htmlspecialchars(strip_tags($this->nombre));
+        $this->apellidos=htmlspecialchars(strip_tags($this->apellidos));
+        $this->contrasena=htmlspecialchars(strip_tags($this->contrasena));
+        $this->privilegio=htmlspecialchars(strip_tags($this->privilegio));
+
+        $stmt->bindParam(":correo", $this->correo);
+        $stmt->bindParam(":nombre", $this->nombre);
+        $stmt->bindParam(":apellidos", $this->apellidos);
+        $stmt->bindParam(":contrasena", $this->contrasena);
+        $stmt->bindParam(":privilegio", "USUARIO");
+
+        if($stmt->execute()){
+            return true;
+        }
+
+        return false;
+    }
 
     function update() {
         $query = "UPDATE " . $this->table_name . " SET
