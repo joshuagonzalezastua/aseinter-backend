@@ -33,7 +33,6 @@ class Usuario {
         $this->correo = $row['correo'];
         $this->nombre = $row['nombre'];
         $this->apellidos = $row['apellidos'];
-        $this->telefono = $row['telefono'];
         $this->contrasena = $row['contrasena'];
         $this->privilegio = $row['privilegio'];
     }
@@ -118,7 +117,9 @@ class Usuario {
     function update() {
         $query = "UPDATE " . $this->table_name . " SET
             nombre=:nombre, 
-            apellidos=:apellidos
+            apellidos=:apellidos,
+			contrasena=:contrasena,
+			privilegio=:privilegio
             WHERE 
             correo=:correo";
 
@@ -127,11 +128,28 @@ class Usuario {
         $this->correo=htmlspecialchars(strip_tags($this->correo));
         $this->nombre=htmlspecialchars(strip_tags($this->nombre));
         $this->apellidos=htmlspecialchars(strip_tags($this->apellidos));
+		$this->contrasena=htmlspecialchars(strip_tags($this->contrasena));
+		$this->privilegio=htmlspecialchars(strip_tags($this->privilegio));
     
+		$stmt->bindParam(":correo", $this->correo);
         $stmt->bindParam(":nombre", $this->nombre);
         $stmt->bindParam(":apellidos", $this->apellidos);
-        $stmt->bindParam(":correo", $this->correo);
+		$stmt->bindParam(":contrasena", $this->contrasena);
+		$stmt->bindParam(":privilegio", $this->privilegio);
     
+        if($stmt->execute()){
+            return true;
+        }
+
+        return false;
+    }
+	
+	function delete(){
+        $query = "DELETE FROM " . $this->table_name . " WHERE correo = ?";
+        $stmt = $this->conn->prepare($query);
+        $this->correo=htmlspecialchars(strip_tags($this->correo));
+        $stmt->bindParam(1, $this->correo);
+
         if($stmt->execute()){
             return true;
         }
