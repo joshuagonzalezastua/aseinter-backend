@@ -7,14 +7,16 @@ class Actividad {
     public $id_actividad;
     public $titulo;
     public $descripcion;
-    public $fecha;
+    public $color;
+    public $startDate;
+    public $endDate;
  
     public function __construct($db){
         $this->conn = $db;
     }
    
 	function read() {
-    	$query = "SELECT id_actividad, titulo, descripcion, fecha FROM " . $this->table_name;
+    	$query = "SELECT id_actividad, titulo, descripcion, color, startDate, endDate FROM " . $this->table_name;
         $stmt = $this->conn->prepare($query);
 		$stmt->execute();
 		return $stmt;
@@ -36,21 +38,27 @@ class Actividad {
     }
 
     function create() {
-        $query = "INSERT INTO " . $this->table_name 
+        $query = "INSERT INTO " . $this->table_name
             . " SET 
-            titulo=:titulo, 
+            titulo=:titulo,
             descripcion=:descripcion,
-            fecha=:fecha";
+            color=:color,
+            startDate=:startDate,
+            endDate=:endDate";
 
         $stmt = $this->conn->prepare($query);
 
         $this->titulo = htmlspecialchars(strip_tags($this->titulo));
         $this->descripcion = htmlspecialchars(strip_tags($this->descripcion));
-        $this->fecha = htmlspecialchars(strip_tags($this->fecha));
+        $this->color = htmlspecialchars(strip_tags($this->color));
+        $this->startDate = htmlspecialchars(strip_tags($this->startDate));
+        $this->endDate = htmlspecialchars(strip_tags($this->endDate));
 
         $stmt->bindParam(":titulo", $this->titulo);
         $stmt->bindParam(":descripcion", $this->descripcion);
-        $stmt->bindParam(":fecha", $this->fecha);
+        $stmt->bindParam(":color",$this->color);
+        $stmt->bindParam(":startDate",$this->startDate);
+        $stmt->bindParam(":endDate",$this->endDate);
 
         if($stmt->execute()) {
             return true;

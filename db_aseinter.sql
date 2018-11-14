@@ -10,7 +10,9 @@ create table actividad(
 	id_actividad int primary key not null AUTO_INCREMENT,
     titulo varchar(40) not null,
     descripcion varchar(255),
-    fecha datetime not null
+    color varchar(40),
+    startDate datetime not null,
+    endDate datetime not null
 );
 
 create table tiquete(
