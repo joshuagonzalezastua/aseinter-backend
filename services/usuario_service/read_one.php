@@ -12,16 +12,13 @@ $database = new Database();
 $db = $database->getConnection();
 
 $usuario = new Usuario($db);
-$usuario->correo = isset($_GET['correo']) ? $_GET['correo'] : die();
+$usuario->nombre_usuario = isset($_GET['nombre_usuario']) ? $_GET['nombre_usuario'] : die();
 
 $usuario->readOne();
 
 $usuario_arr = array(
-        "correo" => $usuario->correo,
-        "nombre" => $usuario->nombre,
-        "apellidos" => $usuario->apellidos,
-        "contrasena" => $usuario->contrasena,
-        "privilegio" => $usuario->privilegio
+        "nombre_usuario" => $usuario->nombre_usuario,
+        "contrasena" => $usuario->contrasena
 );
 
 print_r(json_encode($usuario_arr));

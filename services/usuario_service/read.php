@@ -20,11 +20,8 @@ if($num>0) {
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
         	extract($row);
 			$usuario_item=array(
-            "correo" => $correo,
-            "nombre" => $nombre,
-            "apellidos" => $apellidos,
-            "contrasena" => $contrasena,
-            "privilegio" => $privilegio
+            "nombre_usuario" => $nombre_usuario,
+            "contrasena" => $contrasena
         );
         array_push($usuario_arr, $usuario_item);
     }

@@ -12,17 +12,17 @@ $database = new Database();
 $db = $database->getConnection();
 
 $usuario = new Usuario($db);
-$usuario->correo = isset($_GET['correo']) ? $_GET['correo'] : die();
-$usuario->contrasena = isset($_GET['contrasena']) ? $_GET['contrasena'] : die();
+
+$data = json_decode(file_get_contents("php://input"));
+
+$usuario->nombre_usuario = $data->nombre_usuario;
+$usuario->contrasena = $data->contrasena;
 
 $usuario->login();
 
 $usuario_arr = array(
-        "correo" => $usuario->correo,
-        "nombre" => $usuario->nombre,
-        "apellidos" => $usuario->apellidos,
-        "contrasena" => $usuario->contrasena,
-        "privilegio" => $usuario->privilegio
+        "nombre_usuario" => $usuario->nombre_usuario,
+        "contrasena" => $usuario->contrasena
 );
 
 print_r(json_encode($usuario_arr));

@@ -2,11 +2,8 @@ create database aseinter;
 use aseinter;
 
 create table usuario(
-	correo varchar(50) primary key not null,
-    nombre varchar(25) null,
-    apellidos varchar(40) null,
-	contrasena varchar(15) not null,
-	privilegio varchar(15) not null
+	nombre_usuario varchar(50) primary key not null,
+	contrasena varchar(15) not null
 );
 
 create table actividad(
@@ -14,4 +11,11 @@ create table actividad(
     titulo varchar(40) not null,
     descripcion varchar(255),
     fecha datetime not null
+);
+
+create table tiquete(
+	id_tiquete int primary key not null AUTO_INCREMENT,
+	id_persona varchar(50),
+    fecha date not null,
+    motivo varchar(255) not null
 );

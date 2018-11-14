@@ -17,9 +17,8 @@ $usuario = new Usuario($db);
  
 $data = json_decode(file_get_contents("php://input"));
 
-$usuario->correo = $data->correo;
-$usuario->nombre = $data->nombre;
-$usuario->apellidos = $data->apellidos;
+$usuario->nombre_usuario = $data->nombre_usuario;
+$usuario->contrasena = $data->contrasena;
 
 if($usuario->update()){
     echo '{ "response": "1" }';

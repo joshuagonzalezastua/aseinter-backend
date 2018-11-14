@@ -8,22 +8,25 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
  
  
 include_once '../../db_conf/database.php'; 
-include_once '../../entities/usuario.php';
- 
+include_once '../../entities/tiquete.php';
+
 $database = new Database();
 $db = $database->getConnection();
  
-$usuario = new Usuario($db);
+$tiquete = new tiquete($db);
  
 $data = json_decode(file_get_contents("php://input"));
+ 
+$tiquete->fecha = $data->fecha;
+$tiquete->id_persona = $data->id_persona;
+$tiquete->motivo = $data->motivo;
 
-$usuario->nombre_usuario = $data->nombre_usuario;
-$usuario->contrasena = $data->contrasena;
+if($tiquete->create()) {
 
-if($usuario->create()) {
     $response = array(
-        "nombre_usuario" => $usuario->nombre_usuario,
-        "contrasena" => $usuario->contrasena
+        "id_persona" => $tiquete->id_persona,
+        "fecha" => $tiquete->fecha,
+        "motivo" => $tiquete->motivo
     );
 
     echo '"response":' . json_encode($response);
