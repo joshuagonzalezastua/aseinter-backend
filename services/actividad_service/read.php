@@ -23,7 +23,9 @@ if($num>0) {
             "id_actividad" => $id_actividad,
             "titulo" => $titulo,
             "descripcion" => $descripcion,
-            "fecha" => $fecha
+            "color" => $color,
+                "startDate" => $startDate,
+                "endDate" => $endDate
         );
         array_push($actividad_arr, $actividad_item);
     }

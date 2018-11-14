@@ -19,7 +19,9 @@ $data = json_decode(file_get_contents("php://input"));
  
 $actividad->titulo = $data->titulo;
 $actividad->descripcion = $data->descripcion;
-$actividad->fecha = $data->fecha;
+$actividad->color = $data->color;
+$actividad->startDate = $data->startDate;
+$actividad->endDate= $data->endDate;
 
 if($actividad->create()) {
 
@@ -27,7 +29,9 @@ if($actividad->create()) {
         "id_actividad" => $actividad->id_actividad,
         "titulo" => $actividad->titulo,
         "descripcion" => $actividad->descripcion,
-        "fecha" => $actividad->fecha
+        "color" => $actividad->color,
+        "startDate" => $actividad->startDate,
+        "endDate" => $actividad->endDate
     );
 
     echo '"response":' . json_encode($response);
